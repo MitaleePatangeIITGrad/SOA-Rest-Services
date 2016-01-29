@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>
+REST service implementation by Mitalee Patange
+</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+  $.ajax({
+  url : "http://api.wunderground.com/api/2e02969defcb4a64/geolookup/conditions/q/NY/New%20York.json",
+  dataType : "jsonp",
+  success : function(parsed_json) {
+  var city = parsed_json['location']['city'];
+  var state = parsed_json['location']['state']; 
+  var temp_f = parsed_json['current_observation']['temp_f'];
+  var temp_c = parsed_json['current_observation']['temp_c'];  
+  var icon_url = parsed_json['current_observation']['icon_url'];  
+  var feelslike_string = parsed_json['current_observation']['feelslike_string'];
+  var weather = document.getElementById('wuDiv');
+  weather.innerHTML = "Current temperature in " + city + ", " + state + " is: " + temp_f + " F / " + temp_c + " C and it feels like " + feelslike_string + " <img src=" +icon_url+ " />";
+  }
+  });
+});
+</script>
+
+<link href="main.css" rel="stylesheet" type="text/css"></link>
+</head>
+<body>
+<div class="main-title"><h1>SOA with REST</h1></div>
+<div><br/><h2>WeatherUnderground REST services - NewYork Weather<h2></div>
+<div id="wuDiv"></div>
+
+<div><br/><h2>Twitter REST services - Mitalee's Tweets<h2></div>
+    <div class="tweets-container"></div>
+
+
+    <script src="tweets.js"></script>
+    <script src="jquery-1.11.1.min.js"></script>
+
+</body>
+</html>
